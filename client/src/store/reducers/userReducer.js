@@ -1,9 +1,8 @@
 const initState = {
-    isLoggedIn : false,
-    token : null,
+    userData: []
 }
 
-const authReducer = (state = initState, action) => {
+const userReducer = (state = initState, action) => {
     switch (action.type) {
         
         default:
@@ -11,4 +10,4 @@ const authReducer = (state = initState, action) => {
     }
 }   
 
-export default authReducer
+export default userReducer

@@ -16,9 +16,15 @@ const Header = () => {
   const { isLoggedIn } = useSelector((state) => state.auth);
 
   const goLogin = useCallback((flag) => {
-    navigate(path.login, { state: { flag } });
+    if(flag) {
+      navigate(path.register, { state: { flag } });
+    }else{
+      navigate(path.login, { state: { flag } });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+
 
   return (
     <div className="w-1100 flex justify-between items-center px-10 py-2">

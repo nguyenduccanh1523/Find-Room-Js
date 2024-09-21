@@ -1,5 +1,6 @@
+
 export const path = {
     home: '/*',
-    about: '/about',
-    login: 'login'
+    register: 'dang-ky-tai-khoan',
+    login: 'dang-nhap',
 };

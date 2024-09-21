@@ -7,6 +7,7 @@ function App() {
     <div className="h-screen w-screen bg-primary">
       <Routes>
         <Route path={path.home} element={<Home />}>
+          <Route path={path.register} element={<Login />} />
           <Route path={path.login} element={<Login />} />
         </Route>
       </Routes>

@@ -7,9 +7,10 @@ import nhachothue from "../../data/nhachothue.json";
 import chothuephongtro from "../../data/chothuephongtro.json";
 import timnguoioghep from "../../data/timnguoioghep.json";
 import generateCode from "../ultils/generateCode";
+import { where } from "sequelize";
 require("dotenv").config();
 
-const dataBody = timnguoioghep.body;
+const dataBody = chothuephongtro.body;
 
 const hashPassword = (password) =>
   bcrypt.hashSync(password, bcrypt.genSaltSync(12));
@@ -19,7 +20,8 @@ export const insertService = () =>
     try {
       dataBody.forEach(async (item) => {
         let postId = v4();
-        let labelCode = generateCode(4);
+        let labelCode = generateCode(item?.overview?.content.find((i) => i.name === "Chuyên mục:")
+        ?.content);
         let attributesId = v4();
         let userId = v4();
         let overviewId = v4();
@@ -31,7 +33,7 @@ export const insertService = () =>
           labelCode,
           address: item?.header?.address,
           attributesId,
-          categoryCode: "TNOG",
+          categoryCode: "CTPT",
           description: JSON.stringify(item?.mainContent?.content),
           userId,
           overviewId,
@@ -48,10 +50,13 @@ export const insertService = () =>
           id: imagesId,
           image: JSON.stringify(item?.images),
         });
-        await db.Label.create({
-          code: labelCode,
-          value: item?.overview?.content.find((i) => i.name === "Chuyên mục:")
+        await db.Label.findOrCreate({
+          where: {code: labelCode},
+          defaults: {
+            code: labelCode,
+            value: item?.overview?.content.find((i) => i.name === "Chuyên mục:")
             ?.content,
+          }
         });
         await db.Overview.create({
           id: overviewId,

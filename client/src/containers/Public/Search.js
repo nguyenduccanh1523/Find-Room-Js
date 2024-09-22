@@ -14,7 +14,7 @@ const {
 
 const Search = () => {
   return (
-    <div className="p-[10px] bg-[#febb02] rounded-lg flex-col lg:flex-row flex gap-2 items-center justify-around">
+    <div className="p-[10px] w-4/5 bg-[#febb02] rounded-lg flex-col lg:flex-row flex gap-2 items-center justify-around">
       <SearchItem
         IconBefore={<MdOutlineHouseSiding />}
         fontWeight

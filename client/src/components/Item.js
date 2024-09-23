@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 import icons from "../ultils/icons";
 
 const images = [
@@ -11,29 +11,44 @@ const images = [
 const { GrStar, RiHeartFill, RiHeartLine, BsBookmarkStarFill } = icons;
 
 const Item = () => {
+  const [isHoverHeart, setIsHoverHeart] = useState(false);
   return (
     <div className="w-full flex border-t border-orange-700 py-4">
-      <div className="w-2/5 flex flex-wrap items-center gap-[2px]">
+      <div className="w-2/5 flex flex-wrap items-center gap-[2px] relative cursor-pointer">
         <img
           src={images[0]}
           alt="preview"
-          className="w-[140px] h-[120px] object-cover"
+          className="w-[150px] h-[152px] object-cover"
         />
         <img
           src={images[1]}
           alt="preview"
-          className="w-[140px] h-[120px] object-cover"
+          className="w-[150px] h-[152px] object-cover"
         />
         <img
           src={images[2]}
           alt="preview"
-          className="w-[140px] h-[120px] object-cover"
+          className="w-[150px] h-[152px] object-cover"
         />
         <img
           src={images[3]}
           alt="preview"
-          className="w-[140px] h-[120px] object-cover"
+          className="w-[150px] h-[152px] object-cover"
         />
+        <span className="bg-overlay-70 text-white px-2 rounded-md absolute left-1 bottom-1 ">
+          4 ảnh
+        </span>
+        <span
+          className="text-white absolute right-6 bottom-1"
+          onMouseEnter={() => setIsHoverHeart(true)}
+          onMouseLeave={() => setIsHoverHeart(false)}
+        >
+          {isHoverHeart ? (
+            <RiHeartFill size={26} color="red" />
+          ) : (
+            <RiHeartLine size={26} />
+          )}
+        </span>
       </div>
       <div className="w-3/5">
         <div className="flex justify-between gap-4 w-full">
@@ -50,16 +65,21 @@ const Item = () => {
             <BsBookmarkStarFill size={24} color="orange" />
           </div>
         </div>
-        <div className="my-2 flex items-center justify-between gap-2">
-          <span className="font-bold flex-3 text-green-600  whitespace-nowrap overflow-hidden text-ellipsis">
+
+        <div className=" w-full  flex items-center justify-between gap-2 mt-2">
+          <span className="font-bold w-[40%] flex-3 text-green-600  ">
             2.500.000 VNĐ
           </span>
-          <span className="flex-1 ml-5">30m²</span>
-          <span className="flex-3 whitespace-nowrap overflow-hidden text-ellipsis">
-            Quận Bình Thạnh, Hồ Chí Minh
-          </span>
+          <span className="flex-1 ">30m²</span>
         </div>
-        <p className="text-gray-600 text-end w-full mb-3 font-serif">99 phút trước</p>
+        <div className=" w-full  flex items-center justify-between mb-2">
+          <span className="w-3/5">
+            Địa chỉ: Hẻm 90 Thành Thái, Phường 12, Quận 10, Hồ Chí Minh
+          </span>
+          <p className="text-gray-600 text-end w-2/5 font-serif ">
+            99 phút trước
+          </p>
+        </div>
         <p className="text-gray-500 w-full text-ellipsis overflow-hidden">
           - Để đảm bảo an ninh cho Sinh Viên ở Ngõ Sen giờ hoạt động từ 6h - 24h
           (không có giờ tự do), ra vào cổng bằng khóa vân tay.- Đ/c: Ngõ Sen

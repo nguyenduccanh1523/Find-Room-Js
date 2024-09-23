@@ -2,13 +2,15 @@ import { CiCirclePlus } from "react-icons/ci";
 import { FiUserPlus } from "react-icons/fi";
 import { CiLogout } from "react-icons/ci";
 import { CiLogin } from "react-icons/ci";
-import { BsChevronRight } from "react-icons/bs";
+import { BsChevronRight, BsBookmarkStarFill } from "react-icons/bs";
 import { MdOutlineHouseSiding } from "react-icons/md";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { RiCrop2Line } from "react-icons/ri";
 import { TbReportMoney } from "react-icons/tb";
 import { RiDeleteBack2Line } from "react-icons/ri";
 import { FiSearch } from "react-icons/fi";
+import {GrStar } from "react-icons/gr";
+import { RiHeartFill, RiHeartLine } from "react-icons/ri";
 
 const icons = {
     CiCirclePlus,
@@ -21,7 +23,11 @@ const icons = {
     RiCrop2Line,
     TbReportMoney,
     RiDeleteBack2Line,
-    FiSearch
+    FiSearch,
+    GrStar,
+    RiHeartFill,
+    RiHeartLine,
+    BsBookmarkStarFill
 };
 
 export default icons;

@@ -1,6 +1,7 @@
 import React, { memo, useState } from "react";
 import icons from "../ultils/icons";
-
+import { useNavigate, Link } from "react-router-dom";
+import { formatVietnameseToString } from "../ultils/Common/formatVietnameseToString";
 const indexs = [0, 1, 2, 3];
 
 const {
@@ -10,7 +11,7 @@ const {
   BsBookmarkStarFill,
   TbReportMoney,
   RiCrop2Line,
-  HiOutlineLocationMarker
+  HiOutlineLocationMarker,
 } = icons;
 
 const Item = ({
@@ -24,10 +25,21 @@ const Item = ({
   id,
 }) => {
   const [isHoverHeart, setIsHoverHeart] = useState(false);
+  const navigate = useNavigate();
+
+  const handleStar = (star) => {
+    let stars = [];
+    for (let i = 1; i <= +star; i++)
+      stars.push(<GrStar className="star-item" size={18} color="yellow" />);
+    return stars;
+  };
 
   return (
     <div className="w-full flex border-t border-orange-700 py-4">
-      <div className="w-2/5 flex flex-wrap items-center gap-[2px] relative cursor-pointer">
+      <Link
+        to={`chi-tiet/${formatVietnameseToString(title)}/${id}`}
+        className="w-2/5 flex flex-wrap items-center gap-[2px] relative cursor-pointer"
+      >
         {images.length > 0 &&
           images
             .filter((i, index) => indexs.some((i) => i === index))
@@ -55,15 +67,14 @@ const Item = ({
             <RiHeartLine size={26} />
           )}
         </span>
-      </div>
+      </Link>
       <div className="w-3/5">
         <div className="flex justify-between gap-4 w-full">
           <div className="text-red-600 font-medium">
-            <GrStar className="star-item" size={18} color="yellow" />
-            <GrStar className="star-item" size={18} color="yellow" />
-            <GrStar className="star-item" size={18} color="yellow" />
-            <GrStar className="star-item" size={18} color="yellow" />
-            <GrStar className="star-item" size={18} color="yellow" />
+            {handleStar(+star).length > 0 &&
+              handleStar(+star).map((star, number) => {
+                return <span key={number}>{star}</span>;
+              })}
             {title}
           </div>
           <div className="w-[10%] flex justify-end">
@@ -83,10 +94,15 @@ const Item = ({
         </div>
         <div className=" w-full  flex items-center justify-between my-2 ">
           <span className="w-4/5 text-ellipsis overflow-hidden whitespace-nowrap flex">
-            <HiOutlineLocationMarker size={20} color="black" className="mt-[2px] mr-1" />
-          {`${
-            address.split(",")[address.split(",").length - 2]
-          },${address.split(",")[address.split(",").length - 1]}`}</span>
+            <HiOutlineLocationMarker
+              size={20}
+              color="black"
+              className="mt-[2px] mr-1"
+            />
+            {`${address.split(",")[address.split(",").length - 2]},${
+              address.split(",")[address.split(",").length - 1]
+            }`}
+          </span>
           <p className="text-gray-600 text-end w-2/5 font-serif ">
             {attributes?.published}
           </p>

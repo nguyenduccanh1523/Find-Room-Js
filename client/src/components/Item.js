@@ -3,7 +3,15 @@ import icons from "../ultils/icons";
 
 const indexs = [0, 1, 2, 3];
 
-const { GrStar, RiHeartFill, RiHeartLine, BsBookmarkStarFill } = icons;
+const {
+  GrStar,
+  RiHeartFill,
+  RiHeartLine,
+  BsBookmarkStarFill,
+  TbReportMoney,
+  RiCrop2Line,
+  HiOutlineLocationMarker
+} = icons;
 
 const Item = ({
   images,
@@ -15,11 +23,8 @@ const Item = ({
   address,
   id,
 }) => {
-
-
   const [isHoverHeart, setIsHoverHeart] = useState(false);
 
-  
   return (
     <div className="w-full flex border-t border-orange-700 py-4">
       <div className="w-2/5 flex flex-wrap items-center gap-[2px] relative cursor-pointer">
@@ -67,13 +72,21 @@ const Item = ({
         </div>
 
         <div className=" w-full  flex items-center justify-between gap-2 mt-2">
-          <span className="font-bold w-[40%] flex-3 text-green-600  ">
+          <span className="font-bold w-[40%] flex flex-3 text-green-600 text-ellipsis overflow-hidden whitespace-nowrap">
+            <TbReportMoney size={20} color="green" className="mt-[2px]" />
             {attributes?.price}
           </span>
-          <span className="flex-1 ">{attributes?.acreage}</span>
+          <span className="flex-3 flex ">
+            <RiCrop2Line size={20} color="black" className="mt-[2px] mr-1" />
+            {attributes?.acreage}
+          </span>
         </div>
-        <div className=" w-full  flex items-center justify-between my-2">
-          <span className="w-4.5/5">{address}</span>
+        <div className=" w-full  flex items-center justify-between my-2 ">
+          <span className="w-4/5 text-ellipsis overflow-hidden whitespace-nowrap flex">
+            <HiOutlineLocationMarker size={20} color="black" className="mt-[2px] mr-1" />
+          {`${
+            address.split(",")[address.split(",").length - 2]
+          },${address.split(",")[address.split(",").length - 1]}`}</span>
           <p className="text-gray-600 text-end w-2/5 font-serif ">
             {attributes?.published}
           </p>

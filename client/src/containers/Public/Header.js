@@ -1,33 +1,41 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import logo from "../../assets/logo.png";
 import { Button } from "../../components";
 import icons from "../../ultils/icons";
 import { path } from "../../ultils/constant";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import * as actions from '../../store/actions'
+import * as actions from "../../store/actions";
 
 const { CiCirclePlus, FiUserPlus, CiLogin, CiLogout } = icons;
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [searchParams] = useSearchParams();
+  const headerRef = useRef();
 
   const { isLoggedIn } = useSelector((state) => state.auth);
 
   const goLogin = useCallback((flag) => {
-    if(flag) {
+    if (flag) {
       navigate(path.register, { state: { flag } });
-    }else{
+    } else {
       navigate(path.login, { state: { flag } });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-
+  useEffect(() => {
+    headerRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams.get("page")]);
 
   return (
-    <div className="w-4/5 flex justify-between items-center px-10 py-2">
+    <div
+      ref={headerRef}
+      className="w-4/5 flex justify-between items-center px-10 py-2"
+    >
       <Link to={"/"}>
         <img
           src={logo}

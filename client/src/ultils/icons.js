@@ -9,7 +9,7 @@ import { RiCrop2Line } from "react-icons/ri";
 import { TbReportMoney } from "react-icons/tb";
 import { RiDeleteBack2Line } from "react-icons/ri";
 import { FiSearch } from "react-icons/fi";
-import {GrStar } from "react-icons/gr";
+import {GrStar, GrLinkNext, GrLinkPrevious } from "react-icons/gr";
 import { RiHeartFill, RiHeartLine } from "react-icons/ri";
 
 const icons = {
@@ -27,7 +27,9 @@ const icons = {
     GrStar,
     RiHeartFill,
     RiHeartLine,
-    BsBookmarkStarFill
+    BsBookmarkStarFill,
+    GrLinkNext,
+    GrLinkPrevious
 };
 
 export default icons;

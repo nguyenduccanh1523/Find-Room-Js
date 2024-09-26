@@ -1,22 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { apiGetCategories } from "../../services/category";
 import { formatVietnameseToString } from "../../ultils/Common/formatVietnameseToString";
+import * as actions from "../../store/actions";
+import { useDispatch, useSelector } from "react-redux";
 
 const notActive = "hover:bg-danger px-4 h-full flex items-center bg-secondary";
 const active = "hover:bg-danger px-4 h-full flex items-center  bg-danger";
 const Navigation = () => {
-  const [categories, setCategories] = useState([]);
+  const dispatch = useDispatch();
+  const { categories  } = useSelector((state) => state.app);
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      const response = await apiGetCategories();
-      if (response?.data.err === 0) {
-        setCategories(response.data.response);
-      }
-    };
-    fetchCategories();
-  }, []);
+    dispatch(actions.getCategories());
+  }, [dispatch]);
 
   return (
     <div className="w-full flex justify-center items-center h-[40px] bg-secondary text-white">

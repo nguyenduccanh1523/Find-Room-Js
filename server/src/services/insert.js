@@ -11,7 +11,7 @@ import { dataPrice, dataArea } from '../ultils/data'
 import { getNumberFromString } from "../ultils/common";
 require("dotenv").config();
 
-const dataBody = chothuephongtro.body;
+const dataBody = nhachothue.body;
 
 const hashPassword = (password) =>
   bcrypt.hashSync(password, bcrypt.genSaltSync(12));
@@ -36,7 +36,7 @@ export const insertService = () =>
           labelCode,
           address: item?.header?.address,
           attributesId,
-          categoryCode: "CTPT",
+          categoryCode: "NCT",
           description: JSON.stringify(item?.mainContent?.content),
           userId,
           overviewId,
@@ -100,3 +100,26 @@ export const insertService = () =>
       reject(error);
     }
   });
+
+  export const createPricesAndAreas = () => new Promise((resolve, reject) => {
+    try {
+        dataPrice.forEach(async (item, index) => {
+            await db.Price.create({
+                order: index + 1,
+                code: item.code,
+                value: item.value,
+                
+            })
+        })
+        dataArea.forEach(async (item, index) => {
+            await db.Area.create({
+                order: index + 1,
+                code: item.code,
+                value: item.value,
+            })
+        })
+        resolve('OK')
+    } catch (err) {
+        reject(err)
+    }
+})

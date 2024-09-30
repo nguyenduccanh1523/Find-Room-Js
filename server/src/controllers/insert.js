@@ -3,7 +3,7 @@
 export const insert = async (req, res) => {
     
     try {
-        const response = await insertService.insertService(req.body)
+        const response = await insertService.createPricesAndAreas(req.body)
         return res.status(200).json(response)
 
     } catch (error) {

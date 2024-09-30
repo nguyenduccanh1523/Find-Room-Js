@@ -7,7 +7,8 @@ import nhachothue from "../../data/nhachothue.json";
 import chothuephongtro from "../../data/chothuephongtro.json";
 import timnguoioghep from "../../data/timnguoioghep.json";
 import generateCode from "../ultils/generateCode";
-import { where } from "sequelize";
+import { dataPrice, dataArea } from '../ultils/data'
+import { getNumberFromString } from "../ultils/common";
 require("dotenv").config();
 
 const dataBody = chothuephongtro.body;
@@ -26,6 +27,8 @@ export const insertService = () =>
         let userId = v4();
         let overviewId = v4();
         let imagesId = v4();
+        let currentArea = getNumberFromString(item?.header?.attributes?.acreage)
+        let currentPrice = getNumberFromString(item?.header?.attributes?.price)
         await db.Post.create({
           id: postId,
           title: item?.header?.title,
@@ -38,6 +41,8 @@ export const insertService = () =>
           userId,
           overviewId,
           imagesId,
+          areaCode: dataArea.find(area => area.max > currentArea && area.min <= currentArea)?.code,
+          priceCode: dataPrice.find(area => area.max > currentPrice && area.min <= currentPrice)?.code,
         });
         await db.Attribute.create({
           id: attributesId,

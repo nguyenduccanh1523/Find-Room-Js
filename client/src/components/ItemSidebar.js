@@ -1,11 +1,21 @@
 import React, { memo } from "react";
 import icons from "../ultils/icons";
-import { Link } from "react-router-dom";
+import { createSearchParams, Link, useLocation, useNavigate } from "react-router-dom";
 import { formatVietnameseToString } from "../ultils/Common/formatVietnameseToString";
+import { useDispatch } from "react-redux";
+import * as actions from '../store/actions'
 
 const { BsChevronRight } = icons;
 
-const ItemSidebar = ({ title, content, isDouble }) => {
+const ItemSidebar = ({ title, content, isDouble, type }) => {
+
+  const location = useLocation()
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  console.log(location)
+
+
+
   const formatContent = () => {
     const oddEl = content?.filter((item, index) => index % 2 !== 0);
     const evenEl = content?.filter((item, index) => index % 2 === 0);
@@ -18,6 +28,17 @@ const ItemSidebar = ({ title, content, isDouble }) => {
 
     return formatContent;
   };
+
+
+  const handleFilterPosts = (code) => {
+    dispatch(actions.getPostsLimit({[type]: code}))
+    navigate({
+        pathname: location?.pathname,
+        search: createSearchParams({
+            [type]: code,
+        }).toString()
+    });
+}
 
   return (
     <div className="p-4 rounded-md bg-white w-full border border-gray-300">
@@ -47,7 +68,7 @@ const ItemSidebar = ({ title, content, isDouble }) => {
                 <div key={index} className="">
                   <div className=" flex items-center justify-around">
                     <div
-                      
+                      onClick={() => handleFilterPosts(item.left.code)}
                       className="flex flex-1 gap-2 items-center cursor-pointer hover:text-orange-600 border-b border-gray-200 pb-1 border-dashed"
                     >
                       <BsChevronRight size={10} color="#ccc" />
@@ -55,7 +76,7 @@ const ItemSidebar = ({ title, content, isDouble }) => {
                     </div>
                     <div
                       className="flex flex-1 gap-2 items-center cursor-pointer hover:text-orange-600 border-b border-gray-200 pb-1 border-dashed"
-                      
+                      onClick={() => handleFilterPosts(item.right.code)}
                     >
                       <BsChevronRight size={10} color="#ccc" />
                       <p>{item.right.value}</p>

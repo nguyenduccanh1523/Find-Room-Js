@@ -2,6 +2,7 @@ import React, { memo } from "react";
 import {
   createSearchParams,
   useNavigate,
+  useSearchParams,
 
 } from "react-router-dom";
 
@@ -12,14 +13,40 @@ const active =
 
 const PageNumber = ({ text, currentPage, icon, setCurrentPage }) => {
   const navigate = useNavigate();
+
+  const [paramsSeach] = useSearchParams()
+  let entries = paramsSeach.entries()
+
+
+  const append = (entries) => {
+    let params = []
+    paramsSeach.append('page', +text)
+    for (let entry of entries) {
+        params.push(entry);
+    }
+    let searchParamsObject = {}
+    // eslint-disable-next-line array-callback-return
+    params?.map(i => {
+      searchParamsObject = { ...searchParamsObject, [i[0]]: i[1] }
+    })
+    // params?.forEach(i => {
+    //     if (Object.keys(searchParamsObject)?.some(item => item === i[0] && item !== 'page')) {
+    //         searchParamsObject[i[0]] = [...searchParamsObject[i[0]], i[1]]
+    //     } else {
+    //         searchParamsObject = { ...searchParamsObject, [i[0]]: [i[1]] }
+    //     }
+    // })
+    return searchParamsObject
+  }
+
+
+
   const handleChangePage = () => {
     if (!(text === "...")) {
       setCurrentPage(+text);
       navigate({
         pathname: "/",
-        search: createSearchParams({
-          page: text,
-        }).toString(),
+        search: createSearchParams(append(entries)).toString()
       });
     }
   };

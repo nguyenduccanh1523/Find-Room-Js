@@ -13,6 +13,7 @@ const Homepage = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    
     dispatch(actions.getPrices())
     dispatch(actions.getAreas())
   }, [dispatch]);
@@ -28,7 +29,7 @@ const Homepage = () => {
       <Province />
       <div className="w-full flex gap-4">
         <div className="w-[70%]">
-          <List page={params.get('page')} />
+          <List />
           <Pagination page={params.get('page')} />
           <div className="h-[500px]"></div>
         </div>

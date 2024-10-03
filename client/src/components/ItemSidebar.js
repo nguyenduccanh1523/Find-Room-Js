@@ -12,7 +12,6 @@ const ItemSidebar = ({ title, content, isDouble, type }) => {
   const location = useLocation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  console.log(location)
 
 
 
@@ -31,7 +30,6 @@ const ItemSidebar = ({ title, content, isDouble, type }) => {
 
 
   const handleFilterPosts = (code) => {
-    dispatch(actions.getPostsLimit({[type]: code}))
     navigate({
         pathname: location?.pathname,
         search: createSearchParams({

@@ -2,17 +2,25 @@ import React, { useEffect } from "react";
 import { Button, Item } from "../../components";
 import { getPostsLimit } from "../../store/actions/post";
 import { useDispatch, useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
 
-
-const List = ({page}) => {
+const List = () => {
   const dispatch = useDispatch();
   const { posts } = useSelector((state) => state.post);
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    let offset = page ? +page - 1 : 0;
-    dispatch(getPostsLimit({offset}));
-  }, [dispatch, page]);
-
+    let params = [];
+    for (let entry of searchParams.entries()) {
+      params.push(entry);
+    }
+    let searchParamsObject = {}
+    // eslint-disable-next-line array-callback-return
+    params?.map(i => {
+      searchParamsObject = { ...searchParamsObject, [i[0]]: i[1] }
+    })
+    dispatch(getPostsLimit( searchParamsObject ));
+  }, [dispatch, searchParams]);
 
   return (
     <div className="w-full border border-gray-300 p-2 bg-white shadow-md rounded-md px-6">
@@ -43,7 +51,6 @@ const List = ({page}) => {
             );
           })}
       </div>
-      
     </div>
   );
 };
